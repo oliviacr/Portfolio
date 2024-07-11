@@ -7,7 +7,7 @@ Welcome to my Data Analysis Portfolio!
 This repository showcases a selection of my projects and analyses, 
 highlighting my skills in data analysis and cleaning,
 statistical modeling, and research methodology, as well as my commitment
-to rigorous, reproducible, transparent research.
+to rigorous, reproducible, and transparent research.
 
 ## Table of Contents (so far...)
 
@@ -23,8 +23,8 @@ to rigorous, reproducible, transparent research.
 - **Techniques**: Structural equation modeling, causal inference, data visualization.
 - **Tools**: R, Mplus.
 
-### 2. Code for main analysis and power analysis exploring within person associations between psychologcal stress and hair hormones
-- **Description**: Based on Robertson et al. 2023 in _Comprehensive Psychoneuroendocrinology_ (https://doi.org/10.1016/j.cpnec.2023.100214)
+### 2. Robertson et al. 2023 in _Comprehensive Psychoneuroendocrinology_ Within-person associations of cortisol, dehydroepiandrosterone, and testosterone hair hormone concentrations and psychological distress in pregnant and non-pregnant women (https://doi.org/10.1016/j.cpnec.2023.100214)
+- **Description**: Code for main analysis and power analysis exploring within person associations between psychological stress and hair hormones
 - **Techniques**: Multilevel structural equation modeling, power analysis
 - **Tools**: Mplus.
 
