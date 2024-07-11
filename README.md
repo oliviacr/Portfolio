@@ -6,7 +6,7 @@ Welcome to my Data Analysis Portfolio!
 
 This repository showcases a selection of my projects and analyses, 
 highlighting my skills in data analysis and cleaning,
-statistical modeling, research methodology, as well as my commitment
+statistical modeling, and research methodology, as well as my commitment
 to rigorous, reproducible, transparent research.
 
 ## Table of Contents (so far...)
