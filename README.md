@@ -17,6 +17,7 @@ to rigorous, reproducible, and transparent research.
 ## Projects
 
 ### 1. Data prep and data analysis code for late breaking abstract submission to Obesity Week 2024
+- **File title**: "Robertson Data Prep & Analysis Obesity Week 2024.rmd"
 - **Description**: A random intercept cross lag panel model for obesity risk (waist circumference to height ratio),
   depression symptoms and pubertal development analyzed within sex and within self reported race/ethnicty using the
   Adolescent Brain Cognitive Development Study (ABCD; https://abcdstudy.org/).
