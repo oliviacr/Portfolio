@@ -24,6 +24,7 @@ to rigorous, reproducible, and transparent research.
 - **Techniques**: Structural equation modeling, causal inference, data visualization.
 - **Tools**: R, Mplus.
 
+(Coming soon)
 ### 2. Robertson et al. 2023 in _Comprehensive Psychoneuroendocrinology_ Within-person associations of cortisol, dehydroepiandrosterone, and testosterone hair hormone concentrations and psychological distress in pregnant and non-pregnant women (https://doi.org/10.1016/j.cpnec.2023.100214)
 - **Description**: Code for main analysis and power analysis exploring within person associations between psychological stress and hair hormones
 - **Techniques**: Multilevel structural equation modeling, power analysis
