@@ -21,11 +21,16 @@ to rigorous, reproducible, and transparent research.
 - **Description**: A random intercept cross lag panel model for obesity risk (waist circumference to height ratio),
   depression symptoms and pubertal development analyzed within sex and within self reported race/ethnicty using the
   Adolescent Brain Cognitive Development Study (ABCD; https://abcdstudy.org/).
-- **Techniques**: Structural equation modeling, causal inference, data visualization.
+- **Techniques**: Multilevel structural equation modeling, causal inference, data visualization.
 - **Tools**: R, Mplus.
 
+### 2. Creation of Weighted Multimorbidity Mortality Indexes from Teas et al., 2021 _Psychosomatic Medecine_ Not Seeing Double: Discordance in Disease, Function, and Their Longitudinal Associations in Monozygotic Twins
+- **File title**: "Midus MWI 1-3.do"
+- **Description**: Creation of weighted multimorbidity mortality variables using STATA using three waves of MIDUS data
+- **Tools**: STATA.
+  
 (Coming soon)
-### 2. Robertson et al. 2023 in _Comprehensive Psychoneuroendocrinology_ Within-person associations of cortisol, dehydroepiandrosterone, and testosterone hair hormone concentrations and psychological distress in pregnant and non-pregnant women (https://doi.org/10.1016/j.cpnec.2023.100214)
+### 3. Robertson et al. 2023 in _Comprehensive Psychoneuroendocrinology_ Within-person associations of cortisol, dehydroepiandrosterone, and testosterone hair hormone concentrations and psychological distress in pregnant and non-pregnant women (https://doi.org/10.1016/j.cpnec.2023.100214)
 - **Description**: Code for main analysis and power analysis exploring within person associations between psychological stress and hair hormones
 - **Techniques**: Multilevel structural equation modeling, power analysis
 - **Tools**: Mplus.
