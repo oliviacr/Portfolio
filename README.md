@@ -24,7 +24,7 @@ to rigorous, reproducible, and transparent research.
 - **Techniques**: Multilevel structural equation modeling, causal inference, data visualization.
 - **Tools**: R, Mplus.
 
-### 2. Creation of Weighted Multimorbidity Mortality Indexes from Teas et al., 2021 _Psychosomatic Medecine_ Not Seeing Double: Discordance in Disease, Function, and Their Longitudinal Associations in Monozygotic Twins
+### 2. Creation of Weighted Multimorbidity Mortality Indexes from Teas et al., 2021 _Psychosomatic Medecine_ Not Seeing Double: Discordance in Disease, Function, and Their Longitudinal Associations in Monozygotic Twins (DOI: 10.1097/PSY.0000000000000972)
 - **File title**: "Midus MWI 1-3.do"
 - **Description**: Creation of weighted multimorbidity mortality variables using STATA using three waves of MIDUS data
 - **Tools**: STATA.
