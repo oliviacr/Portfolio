@@ -24,19 +24,17 @@ to rigorous, reproducible, and transparent research.
 - **Techniques**: Multilevel structural equation modeling, causal inference, data visualization.
 - **Tools**: R, Mplus.
 
-### 2. Creation of Weighted Multimorbidity Mortality Indexes from Teas et al., 2021 _Psychosomatic Medecine_ Not Seeing Double: Discordance in Disease, Function, and Their Longitudinal Associations in Monozygotic Twins (DOI: 10.1097/PSY.0000000000000972)
-- **File title**: "Midus MWI 1-3.do"
-- **Description**: Creation of weighted multimorbidity mortality variables using STATA using three waves of MIDUS data
-- **Tools**: STATA.
+### 2. Creation of Weighted Multimorbidity Mortality Indexes and SAS MLM analyses from Teas et al., 2021 _Psychosomatic Medecine_ Not Seeing Double: Discordance in Disease, Function, and Their Longitudinal Associations in Monozygotic Twins (DOI: 10.1097/PSY.0000000000000972)
+- **File title**: "Midus MWI 1-3.do" and "MIDUS Chronic Conditions Analysis Code.sas"
+- **Description**: Creation of weighted multimorbidity mortality variables using STATA using three waves of MIDUS data and SAS MLM code for paper analyses
+- **Tools**: STATA, SAS
   
-(Coming soon)
 ### 3. Robertson et al. 2023 in _Comprehensive Psychoneuroendocrinology_ Within-person associations of cortisol, dehydroepiandrosterone, and testosterone hair hormone concentrations and psychological distress in pregnant and non-pregnant women (https://doi.org/10.1016/j.cpnec.2023.100214)
 - **Description**: Code for main analysis and power analysis exploring within person associations between psychological stress and hair hormones
 - **Techniques**: Multilevel structural equation modeling, power analysis
 - **Tools**: Mplus.
 
 ## Contact
-
 Feel free to reach out to me for any questions or collaborations!
 - **Email**: ocrobert@iu.edu
 - **LinkedIn**: [Olivia C. Robertson](www.linkedin.com/in/olivia-robertson-78076927b)
