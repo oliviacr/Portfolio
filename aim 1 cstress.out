@@ -1,0 +1,1105 @@
+Mplus VERSION 8.3
+MUTHEN & MUTHEN
+01/04/2023   8:09 PM
+
+INPUT INSTRUCTIONS
+
+  Title:
+
+  Data:
+    File is "R&R01012023.dat";
+  Variable:
+   Names are
+  ID pregnant assess age BMI SES Neg
+  STAI PSS
+  AveCort CortWP AveDHEA
+  DHEAWP Avetesto testoWP
+  cort_dheaWP Avecort_dhea
+  cort_testoWP Avecort_testo
+  CORT PRA cstress_preg cstress_both
+  BAI BDI sex Pregtot hormonal
+  AveSTAI STAIWP
+  AvePSS PSSWP
+  AveBDI STAIBDI
+  AveBAI BAIWP
+  med
+  logAveCort logCortWP
+  logAveDHEA logDHEAWP
+  logAvetesto logtestoWP
+  logcort_dheaWP logAvecort_dhea
+  logcort_testoWP logAvecort_testo;
+
+  MISSING = .;
+
+   USEVARIABLES ARE
+
+  ID pregnant age BMI SES Neg
+  cstress_both assess
+  CortWP DHEAWP testoWP
+  AveCort AveDHEA Avetesto med Cort_Preg;
+
+  !GROUPING = Pregnant (0=NP, 1=Pregnant);
+
+   CLUSTER IS ID; !Level 2 grouping identifier
+
+   WITHIN IS assess CortWP DHEAWP testoWP Cort_Preg;
+   BETWEEN IS AveCort AveDHEA Avetesto pregnant age BMI NEG SES med;
+
+  DEFINE:
+  Cort_Preg = Pregnant*CortWP;
+
+   ANALYSIS: TYPE IS TWOLEVEL RANDOM;
+   ! algorithm=integration;
+   ! integration=montecarlo;
+   ! ITERATIONS = 1000;
+
+    MODEL:
+    %WITHIN% ! Model for Within effects follows
+
+    cstress_both on assess CortWP DHEAWP TestoWP Cort_Preg;
+
+    CortWP with DHEAWP;
+    DHEAWP with TESTOwp;
+    Testowp with cortwp;
+
+  cortwp with Cort_Preg;
+
+  [assess CortWP DHEAWP testoWP Cort_Preg];
+
+  !random slope (for anything that was included on the random line);
+  !s | STAI on CortWP (s);
+
+    %BETWEEN% !Model for Between effects follows
+
+  cstress_both ON AveCort Avetesto AveDHEA pregnant age BMI NEG SES med;  ! regress y on bet
+
+  Avetesto with AveDHEA;
+  AveCort with AveDHEA;
+  Avetesto with AveCort;
+
+   ! do this for all L2 predictors;
+  [AveCort AveDHEA Avetesto pregnant age BMI NEG SES med];
+
+  OUTPUT: TECH1 TECH8 CINTERVAL MODINDICES; ! request parameter specifications, starting val
+   ! optimization history, and confidence intervals for all effects
+
+
+
+*** WARNING
+  Input line exceeded 90 characters. Some input may be truncated.
+  cstress_both ON AveCort Avetesto AveDHEA pregnant age BMI NEG SES med;  ! regress y on betw
+*** WARNING
+  Input line exceeded 90 characters. Some input may be truncated.
+  OUTPUT: TECH1 TECH8 CINTERVAL MODINDICES; ! request parameter specifications, starting valu
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+*** WARNING
+  One or more individual-level variables have no variation within a
+  cluster for the following clusters.
+
+     Variable   Cluster IDs with no within-cluster variation
+
+      DHEAWP      25
+      TESTOWP     10 25
+      CORT_PRE    1001 1002 1003 1004 1005 1006 1007 1008 1009 1010 1011 1012 1014 1015 1016 1017
+                  1019 1020 1021 1022 1023 1024 1025 1026 1027 1028 1030 1031 1032 1033 1034
+
+   4 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         204
+
+Number of dependent variables                                    1
+Number of independent variables                                 14
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   CSTRESS_BO
+
+Observed independent variables
+   PREGNANT    AGE         BMI         SES         NEG         ASSESS
+   CORTWP      DHEAWP      TESTOWP     AVECORT     AVEDHEA     AVETESTO
+   MED         CORT_PRE
+
+Variables with special functions
+
+  Cluster variable      ID
+
+  Within variables
+   ASSESS      CORTWP      DHEAWP      TESTOWP     CORT_PRE
+
+  Between variables
+   PREGNANT    AGE         BMI         SES         NEG         AVECORT
+   AVEDHEA     AVETESTO    MED
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                   100
+Convergence criterion                                    0.100D-05
+Maximum number of EM iterations                                500
+Convergence criteria for the EM algorithm
+  Loglikelihood change                                   0.100D-02
+  Relative loglikelihood change                          0.100D-05
+  Derivative                                             0.100D-03
+Minimum variance                                         0.100D-03
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+
+Input data file(s)
+  R&R01012023.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            17
+     Number of clusters                         68
+
+     Average cluster size        3.000
+
+     Estimated Intraclass Correlations for the Y Variables
+
+                Intraclass              Intraclass              Intraclass
+     Variable  Correlation   Variable  Correlation   Variable  Correlation
+
+     CSTRESS_     0.769      ASSESS       0.000      CORTWP       0.000
+     DHEAWP       0.000      TESTOWP      0.000      CORT_PRE     0.000
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT       1.000
+ AGE            0.985         0.985
+ BMI            0.985         0.971         0.985
+ SES            0.926         0.912         0.912         0.926
+ NEG            0.853         0.838         0.838         0.779         0.853
+ AVECORT        1.000         0.985         0.985         0.926         0.853
+ AVEDHEA        0.985         0.971         0.971         0.912         0.838
+ AVETESTO       0.985         0.971         0.971         0.912         0.838
+ MED            1.000         0.985         0.985         0.926         0.853
+ CSTRESS_       0.941         0.936         0.926         0.873         0.794
+ ASSESS         1.000         0.985         0.985         0.926         0.853
+ CORTWP         0.917         0.912         0.902         0.848         0.775
+ DHEAWP         0.843         0.838         0.828         0.775         0.711
+ TESTOWP        0.833         0.828         0.819         0.765         0.706
+ CORT_PRE       0.917         0.912         0.902         0.848         0.775
+
+
+           Covariance Coverage
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ AVECORT        1.000
+ AVEDHEA        0.985         0.985
+ AVETESTO       0.985         0.985         0.985
+ MED            1.000         0.985         0.985         1.000
+ CSTRESS_       0.941         0.926         0.926         0.941         0.941
+ ASSESS         1.000         0.985         0.985         1.000         0.941
+ CORTWP         0.917         0.902         0.902         0.917         0.917
+ DHEAWP         0.843         0.843         0.843         0.843         0.843
+ TESTOWP        0.833         0.833         0.833         0.833         0.833
+ CORT_PRE       0.917         0.902         0.902         0.917         0.917
+
+
+           Covariance Coverage
+              ASSESS        CORTWP        DHEAWP        TESTOWP       CORT_PRE
+              ________      ________      ________      ________      ________
+ ASSESS         1.000
+ CORTWP         0.917         0.917
+ DHEAWP         0.843         0.838         0.843
+ TESTOWP        0.833         0.828         0.824         0.833
+ CORT_PRE       0.917         0.917         0.838         0.828         0.917
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     PREGNANT              0.500       0.000       0.000   50.00%       0.000      0.000      0.500
+              68.000       0.250      -2.000       1.000   50.00%       1.000      1.000
+     AGE                   0.000       0.067      -9.984    1.49%      -5.308     -1.741     -0.243
+              67.000      32.900      -0.881      13.657    1.49%       2.662      4.923
+     BMI                   0.043       0.993      -9.746    1.49%      -6.453     -3.066     -2.073
+              67.000      51.629       0.468      23.452    1.49%      -1.127      7.175
+     SES                   0.000       0.275      -1.849    1.59%      -0.809     -0.267     -0.043
+              63.000       0.736      -0.013       2.428    1.59%       0.099      0.761
+     NEG                  -0.091       1.602     -15.746    1.72%     -12.746     -7.746     -5.246
+              58.000     245.191       1.795      49.254    1.72%      -2.746      6.254
+     AVECORT               0.001       2.246     -10.601    1.47%      -3.958     -2.608     -1.548
+              68.000      54.985       6.154      30.676    1.47%      -0.623      2.422
+     AVEDHEA               0.215       1.001     -12.678    1.49%      -6.529     -2.729     -1.221
+              67.000      63.633       1.357      26.889    1.49%       1.136      6.294
+     AVETESTO              0.011       1.479      -1.281    1.49%      -0.509     -0.249     -0.112
+              67.000       0.620       3.128       2.772    1.49%      -0.054      0.375
+     MED                   0.118       2.373       0.000   88.24%       0.000      0.000      0.000
+              68.000       0.104       3.633       1.000   11.76%       0.000      0.000
+     CSTRESS_BOTH          0.002       1.188      -1.262    0.52%      -0.761     -0.339     -0.214
+             192.000       0.743       1.969       3.336    0.52%       0.088      0.700
+     ASSESS                1.000       0.000       0.000   33.33%       0.000      1.000      1.000
+             204.000       0.667      -1.500       2.000   33.33%       1.000      2.000
+     CORTWP                0.000      -1.023     -39.702    0.53%      -1.750     -0.600     -0.150
+             187.000      34.779      19.969      30.304    0.53%       0.250      1.800
+     DHEAWP                0.000      -0.556     -29.410    0.58%      -3.877     -1.199      0.000
+             172.000      35.592       3.164      14.705    1.16%       0.793      4.147
+     TESTOWP               0.000       0.692      -1.268    0.59%      -0.256     -0.072     -0.008
+             170.000       0.144       4.132       1.900    0.59%       0.022      0.271
+     CORT_PREG             0.000      -1.737     -39.702    0.53%      -0.800      0.000      0.000
+             187.000      27.738      29.668      30.304    0.53%       0.000      0.550
+
+     THE STANDARD ERRORS OF THE MODEL PARAMETER ESTIMATES MAY NOT BE
+     TRUSTWORTHY FOR SOME PARAMETERS DUE TO A NON-POSITIVE DEFINITE
+     FIRST-ORDER DERIVATIVE PRODUCT MATRIX.  THIS MAY BE DUE TO THE STARTING
+     VALUES BUT MAY ALSO BE AN INDICATION OF MODEL NONIDENTIFICATION.  THE
+     CONDITION NUMBER IS       0.166D-24.  PROBLEM INVOLVING THE FOLLOWING PARAMETER:
+     Parameter 1, %WITHIN%: [ ASSESS ]
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       52
+
+Loglikelihood
+
+          H0 Value                       -3422.049
+          H0 Scaling Correction Factor      2.7627
+            for MLR
+          H1 Value                       -3393.145
+          H1 Scaling Correction Factor      1.9959
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                    6948.098
+          Bayesian (BIC)                  7120.640
+          Sample-Size Adjusted BIC        6955.889
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                             59.389*
+          Degrees of Freedom                    39
+          P-Value                           0.0192
+          Scaling Correction Factor         0.9734
+            for MLR
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.051
+
+CFI/TLI
+
+          CFI                                0.910
+          TLI                                0.862
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                            287.658
+          Degrees of Freedom                    60
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value for Within                   0.059
+          Value for Between                  0.118
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+ CSTRESS_BO ON
+    ASSESS             0.021      0.033      0.614      0.539
+    CORTWP            -0.016      0.013     -1.209      0.227
+    DHEAWP             0.002      0.005      0.316      0.752
+    TESTOWP           -0.094      0.071     -1.320      0.187
+    CORT_PREG          0.021      0.013      1.584      0.113
+
+ CORTWP   WITH
+    DHEAWP            -0.447      1.385     -0.323      0.747
+    TESTOWP            0.107      0.060      1.799      0.072
+    CORT_PREG         27.548     15.934      1.729      0.084
+
+ DHEAWP   WITH
+    TESTOWP            0.863      0.239      3.608      0.000
+
+ Means
+    ASSESS             1.000      0.000  *********      0.000
+    CORTWP            -0.003      0.004     -0.775      0.438
+    DHEAWP             0.085      0.064      1.320      0.187
+    TESTOWP           -0.001      0.001     -0.640      0.522
+    CORT_PREG         -0.002      0.003     -0.754      0.451
+
+ Variances
+    ASSESS             0.667      0.000  *********      0.000
+    CORTWP            34.401     16.407      2.097      0.036
+    DHEAWP            36.379      8.347      4.359      0.000
+    TESTOWP            0.144      0.037      3.898      0.000
+    CORT_PREG         27.737     16.009      1.733      0.083
+
+ Residual Variances
+    CSTRESS_BO         0.166      0.029      5.748      0.000
+
+Between Level
+
+ CSTRESS_BO ON
+    AVECORT           -0.009      0.015     -0.561      0.575
+    AVETESTO          -0.006      0.109     -0.054      0.957
+    AVEDHEA            0.008      0.016      0.525      0.600
+    PREGNANT           0.033      0.165      0.202      0.840
+    AGE                0.000      0.017     -0.014      0.989
+    BMI               -0.004      0.010     -0.378      0.705
+    NEG                0.020      0.006      3.433      0.001
+    SES               -0.334      0.086     -3.875      0.000
+    MED               -0.340      0.205     -1.652      0.098
+
+ AVETESTO WITH
+    AVEDHEA            2.487      0.756      3.290      0.001
+    AVECORT            0.563      0.386      1.458      0.145
+
+ AVECORT  WITH
+    AVEDHEA            4.212      7.142      0.590      0.555
+
+ Means
+    PREGNANT           0.500      0.061      8.246      0.000
+    AGE                0.000      0.699      0.000      1.000
+    BMI                0.045      0.878      0.052      0.959
+    SES               -0.023      0.108     -0.212      0.832
+    NEG               -1.099      1.954     -0.563      0.574
+    AVECORT            0.001      0.899      0.001      0.999
+    AVEDHEA            0.210      0.974      0.216      0.829
+    AVETESTO           0.010      0.096      0.105      0.916
+    MED                0.118      0.039      3.011      0.003
+
+ Intercepts
+    CSTRESS_BO         0.039      0.117      0.330      0.741
+
+ Variances
+    PREGNANT           0.250      0.000  *********      0.000
+    AGE               32.900      4.252      7.737      0.000
+    BMI               51.628      9.909      5.210      0.000
+    SES                0.737      0.132      5.592      0.000
+    NEG              245.283     62.748      3.909      0.000
+    AVECORT           54.985     19.041      2.888      0.004
+    AVEDHEA           63.619     14.224      4.473      0.000
+    AVETESTO           0.620      0.172      3.615      0.000
+    MED                0.104      0.030      3.474      0.001
+
+ Residual Variances
+    CSTRESS_BO         0.329      0.099      3.339      0.001
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.166E-24
+       (ratio of smallest to largest eigenvalue)
+
+
+CONFIDENCE INTERVALS OF MODEL RESULTS
+
+                  Lower .5%  Lower 2.5%    Lower 5%    Estimate    Upper 5%  Upper 2.5%   Upper .5%
+
+Within Level
+
+ CSTRESS_ ON
+    ASSESS          -0.066      -0.045      -0.034       0.021       0.076       0.086       0.107
+    CORTWP          -0.049      -0.041      -0.037      -0.016       0.006       0.010       0.018
+    DHEAWP          -0.012      -0.009      -0.007       0.002       0.011       0.013       0.016
+    TESTOWP         -0.277      -0.233      -0.211      -0.094       0.023       0.045       0.089
+    CORT_PREG       -0.013      -0.005      -0.001       0.021       0.043       0.047       0.055
+
+ CORTWP   WITH
+    DHEAWP          -4.014      -3.161      -2.725      -0.447       1.831       2.267       3.120
+    TESTOWP         -0.046      -0.010       0.009       0.107       0.206       0.224       0.261
+    CORT_PREG      -13.496      -3.683       1.336      27.548      53.760      58.779      68.592
+
+ DHEAWP   WITH
+    TESTOWP          0.247       0.394       0.470       0.863       1.257       1.332       1.480
+
+ Means
+    ASSESS           1.000       1.000       1.000       1.000       1.000       1.000       1.000
+    CORTWP          -0.014      -0.012      -0.010      -0.003       0.004       0.005       0.008
+    DHEAWP          -0.081      -0.041      -0.021       0.085       0.191       0.211       0.251
+    TESTOWP         -0.004      -0.003      -0.003      -0.001       0.001       0.002       0.002
+    CORT_PREG       -0.010      -0.008      -0.007      -0.002       0.003       0.004       0.005
+
+ Variances
+    ASSESS           0.667       0.667       0.667       0.667       0.667       0.667       0.667
+    CORTWP          -7.860       2.243       7.411      34.401      61.390      66.558      76.662
+    DHEAWP          14.880      20.020      22.649      36.379      50.109      52.738      57.878
+    TESTOWP          0.049       0.071       0.083       0.144       0.204       0.216       0.238
+    CORT_PREG      -13.499      -3.640       1.402      27.737      54.071      59.114      68.972
+
+ Residual Variances
+    CSTRESS_BO       0.092       0.110       0.119       0.166       0.214       0.223       0.241
+
+Between Level
+
+ CSTRESS_ ON
+    AVECORT         -0.049      -0.039      -0.034      -0.009       0.017       0.022       0.031
+    AVETESTO        -0.288      -0.220      -0.186      -0.006       0.174       0.209       0.276
+    AVEDHEA         -0.033      -0.023      -0.018       0.008       0.035       0.040       0.050
+    PREGNANT        -0.393      -0.291      -0.239       0.033       0.306       0.358       0.460
+    AGE             -0.043      -0.033      -0.028       0.000       0.027       0.033       0.043
+    BMI             -0.029      -0.023      -0.020      -0.004       0.013       0.016       0.022
+    NEG              0.005       0.009       0.011       0.020       0.030       0.032       0.036
+    SES             -0.555      -0.502      -0.475      -0.334      -0.192      -0.165      -0.112
+    MED             -0.869      -0.742      -0.678      -0.340      -0.002       0.063       0.190
+
+ AVETESTO WITH
+    AVEDHEA          0.540       1.006       1.244       2.487       3.731       3.969       4.435
+    AVECORT         -0.431      -0.194      -0.072       0.563       1.198       1.319       1.557
+
+ AVECORT  WITH
+    AVEDHEA        -14.184      -9.786      -7.536       4.212      15.960      18.210      22.608
+
+ Means
+    PREGNANT         0.344       0.381       0.400       0.500       0.600       0.619       0.656
+    AGE             -1.802      -1.371      -1.150       0.000       1.151       1.371       1.802
+    BMI             -2.216      -1.676      -1.399       0.045       1.490       1.766       2.307
+    SES             -0.300      -0.234      -0.200      -0.023       0.154       0.188       0.254
+    NEG             -6.132      -4.929      -4.314      -1.099       2.115       2.730       3.933
+    AVECORT         -2.316      -1.762      -1.479       0.001       1.480       1.763       2.317
+    AVEDHEA         -2.297      -1.698      -1.391       0.210       1.812       2.119       2.718
+    AVETESTO        -0.238      -0.179      -0.148       0.010       0.169       0.199       0.258
+    MED              0.017       0.041       0.053       0.118       0.182       0.194       0.218
+
+ Intercepts
+    CSTRESS_BO      -0.263      -0.191      -0.154       0.039       0.231       0.268       0.340
+
+ Variances
+    PREGNANT         0.250       0.250       0.250       0.250       0.250       0.250       0.250
+    AGE             21.948      24.566      25.906      32.900      39.895      41.235      43.853
+    BMI             26.105      32.207      35.328      51.628      67.928      71.049      77.151
+    SES              0.398       0.479       0.520       0.737       0.954       0.996       1.077
+    NEG             83.655     122.296     142.062     245.283     348.504     368.270     406.910
+    AVECORT          5.940      17.666      23.663      54.985      86.307      92.305     104.030
+    AVEDHEA         26.980      35.739      40.220      63.619      87.017      91.498     100.257
+    AVETESTO         0.178       0.284       0.338       0.620       0.903       0.957       1.063
+    MED              0.027       0.045       0.055       0.104       0.153       0.162       0.181
+
+ Residual Variances
+    CSTRESS_BO       0.075       0.136       0.167       0.329       0.492       0.523       0.584
+
+
+MODEL MODIFICATION INDICES
+
+NOTE:  Modification indices for direct effects of observed dependent variables
+regressed on covariates may not be included.  To include these, request
+MODINDICES (ALL).
+
+Minimum M.I. value for printing the modification index    10.000
+
+                                   M.I.     E.P.C.
+
+Within Level
+
+WITH Statements
+
+ASSESS   WITH CSTRESS_           999.000     0.000
+
+Between Level
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION FOR WITHIN
+
+
+           NU
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           NU
+              CORT_PRE
+              ________
+                    0
+
+
+           LAMBDA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_           0             0             0             0             0
+ ASSESS             0             0             0             0             0
+ CORTWP             0             0             0             0             0
+ DHEAWP             0             0             0             0             0
+ TESTOWP            0             0             0             0             0
+ CORT_PRE           0             0             0             0             0
+
+
+           LAMBDA
+              CORT_PRE
+              ________
+ CSTRESS_           0
+ ASSESS             0
+ CORTWP             0
+ DHEAWP             0
+ TESTOWP            0
+ CORT_PRE           0
+
+
+           THETA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_           0
+ ASSESS             0             0
+ CORTWP             0             0             0
+ DHEAWP             0             0             0             0
+ TESTOWP            0             0             0             0             0
+ CORT_PRE           0             0             0             0             0
+
+
+           THETA
+              CORT_PRE
+              ________
+ CORT_PRE           0
+
+
+           ALPHA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+                    0             1             2             3             4
+
+
+           ALPHA
+              CORT_PRE
+              ________
+                    5
+
+
+           BETA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_           0             6             7             8             9
+ ASSESS             0             0             0             0             0
+ CORTWP             0             0             0             0             0
+ DHEAWP             0             0             0             0             0
+ TESTOWP            0             0             0             0             0
+ CORT_PRE           0             0             0             0             0
+
+
+           BETA
+              CORT_PRE
+              ________
+ CSTRESS_          10
+ ASSESS             0
+ CORTWP             0
+ DHEAWP             0
+ TESTOWP            0
+ CORT_PRE           0
+
+
+           PSI
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_          11
+ ASSESS             0            12
+ CORTWP             0             0            13
+ DHEAWP             0             0            14            15
+ TESTOWP            0             0            16            17            18
+ CORT_PRE           0             0            19             0             0
+
+
+           PSI
+              CORT_PRE
+              ________
+ CORT_PRE          20
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN
+
+
+           NU
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           NU
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           LAMBDA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT           0             0             0             0             0
+ AGE                0             0             0             0             0
+ BMI                0             0             0             0             0
+ SES                0             0             0             0             0
+ NEG                0             0             0             0             0
+ AVECORT            0             0             0             0             0
+ AVEDHEA            0             0             0             0             0
+ AVETESTO           0             0             0             0             0
+ MED                0             0             0             0             0
+ CSTRESS_           0             0             0             0             0
+
+
+           LAMBDA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ PREGNANT           0             0             0             0             0
+ AGE                0             0             0             0             0
+ BMI                0             0             0             0             0
+ SES                0             0             0             0             0
+ NEG                0             0             0             0             0
+ AVECORT            0             0             0             0             0
+ AVEDHEA            0             0             0             0             0
+ AVETESTO           0             0             0             0             0
+ MED                0             0             0             0             0
+ CSTRESS_           0             0             0             0             0
+
+
+           THETA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT           0
+ AGE                0             0
+ BMI                0             0             0
+ SES                0             0             0             0
+ NEG                0             0             0             0             0
+ AVECORT            0             0             0             0             0
+ AVEDHEA            0             0             0             0             0
+ AVETESTO           0             0             0             0             0
+ MED                0             0             0             0             0
+ CSTRESS_           0             0             0             0             0
+
+
+           THETA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ AVECORT            0
+ AVEDHEA            0             0
+ AVETESTO           0             0             0
+ MED                0             0             0             0
+ CSTRESS_           0             0             0             0             0
+
+
+           ALPHA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+                   21            22            23            24            25
+
+
+           ALPHA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+                   26            27            28            29            30
+
+
+           BETA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT           0             0             0             0             0
+ AGE                0             0             0             0             0
+ BMI                0             0             0             0             0
+ SES                0             0             0             0             0
+ NEG                0             0             0             0             0
+ AVECORT            0             0             0             0             0
+ AVEDHEA            0             0             0             0             0
+ AVETESTO           0             0             0             0             0
+ MED                0             0             0             0             0
+ CSTRESS_          31            32            33            34            35
+
+
+           BETA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ PREGNANT           0             0             0             0             0
+ AGE                0             0             0             0             0
+ BMI                0             0             0             0             0
+ SES                0             0             0             0             0
+ NEG                0             0             0             0             0
+ AVECORT            0             0             0             0             0
+ AVEDHEA            0             0             0             0             0
+ AVETESTO           0             0             0             0             0
+ MED                0             0             0             0             0
+ CSTRESS_          36            37            38            39             0
+
+
+           PSI
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT          40
+ AGE                0            41
+ BMI                0             0            42
+ SES                0             0             0            43
+ NEG                0             0             0             0            44
+ AVECORT            0             0             0             0             0
+ AVEDHEA            0             0             0             0             0
+ AVETESTO           0             0             0             0             0
+ MED                0             0             0             0             0
+ CSTRESS_           0             0             0             0             0
+
+
+           PSI
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ AVECORT           45
+ AVEDHEA           46            47
+ AVETESTO          48            49            50
+ MED                0             0             0            51
+ CSTRESS_           0             0             0             0            52
+
+
+     STARTING VALUES FOR WITHIN
+
+
+           NU
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              CORT_PRE
+              ________
+                0.000
+
+
+           LAMBDA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_       1.000         0.000         0.000         0.000         0.000
+ ASSESS         0.000         1.000         0.000         0.000         0.000
+ CORTWP         0.000         0.000         1.000         0.000         0.000
+ DHEAWP         0.000         0.000         0.000         1.000         0.000
+ TESTOWP        0.000         0.000         0.000         0.000         1.000
+ CORT_PRE       0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CORT_PRE
+              ________
+ CSTRESS_       0.000
+ ASSESS         0.000
+ CORTWP         0.000
+ DHEAWP         0.000
+ TESTOWP        0.000
+ CORT_PRE       1.000
+
+
+           THETA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_       0.000
+ ASSESS         0.000         0.000
+ CORTWP         0.000         0.000         0.000
+ DHEAWP         0.000         0.000         0.000         0.000
+ TESTOWP        0.000         0.000         0.000         0.000         0.000
+ CORT_PRE       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              CORT_PRE
+              ________
+ CORT_PRE       0.000
+
+
+           ALPHA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CORT_PRE
+              ________
+                0.000
+
+
+           BETA
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_       0.000         0.000         0.000         0.000         0.000
+ ASSESS         0.000         0.000         0.000         0.000         0.000
+ CORTWP         0.000         0.000         0.000         0.000         0.000
+ DHEAWP         0.000         0.000         0.000         0.000         0.000
+ TESTOWP        0.000         0.000         0.000         0.000         0.000
+ CORT_PRE       0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              CORT_PRE
+              ________
+ CSTRESS_       0.000
+ ASSESS         0.000
+ CORTWP         0.000
+ DHEAWP         0.000
+ TESTOWP        0.000
+ CORT_PRE       0.000
+
+
+           PSI
+              CSTRESS_      ASSESS        CORTWP        DHEAWP        TESTOWP
+              ________      ________      ________      ________      ________
+ CSTRESS_       0.372
+ ASSESS         0.000         0.333
+ CORTWP         0.000         0.000        17.390
+ DHEAWP         0.000         0.000         0.000        17.796
+ TESTOWP        0.000         0.000         0.000         0.000         0.072
+ CORT_PRE       0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              CORT_PRE
+              ________
+ CORT_PRE      13.869
+
+
+     STARTING VALUES FOR BETWEEN
+
+
+           NU
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT       1.000         0.000         0.000         0.000         0.000
+ AGE            0.000         1.000         0.000         0.000         0.000
+ BMI            0.000         0.000         1.000         0.000         0.000
+ SES            0.000         0.000         0.000         1.000         0.000
+ NEG            0.000         0.000         0.000         0.000         1.000
+ AVECORT        0.000         0.000         0.000         0.000         0.000
+ AVEDHEA        0.000         0.000         0.000         0.000         0.000
+ AVETESTO       0.000         0.000         0.000         0.000         0.000
+ MED            0.000         0.000         0.000         0.000         0.000
+ CSTRESS_       0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ PREGNANT       0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ BMI            0.000         0.000         0.000         0.000         0.000
+ SES            0.000         0.000         0.000         0.000         0.000
+ NEG            0.000         0.000         0.000         0.000         0.000
+ AVECORT        1.000         0.000         0.000         0.000         0.000
+ AVEDHEA        0.000         1.000         0.000         0.000         0.000
+ AVETESTO       0.000         0.000         1.000         0.000         0.000
+ MED            0.000         0.000         0.000         1.000         0.000
+ CSTRESS_       0.000         0.000         0.000         0.000         1.000
+
+
+           THETA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT       0.000
+ AGE            0.000         0.000
+ BMI            0.000         0.000         0.000
+ SES            0.000         0.000         0.000         0.000
+ NEG            0.000         0.000         0.000         0.000         0.000
+ AVECORT        0.000         0.000         0.000         0.000         0.000
+ AVEDHEA        0.000         0.000         0.000         0.000         0.000
+ AVETESTO       0.000         0.000         0.000         0.000         0.000
+ MED            0.000         0.000         0.000         0.000         0.000
+ CSTRESS_       0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ AVECORT        0.000
+ AVEDHEA        0.000         0.000
+ AVETESTO       0.000         0.000         0.000
+ MED            0.000         0.000         0.000         0.000
+ CSTRESS_       0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.002
+
+
+           BETA
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT       0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ BMI            0.000         0.000         0.000         0.000         0.000
+ SES            0.000         0.000         0.000         0.000         0.000
+ NEG            0.000         0.000         0.000         0.000         0.000
+ AVECORT        0.000         0.000         0.000         0.000         0.000
+ AVEDHEA        0.000         0.000         0.000         0.000         0.000
+ AVETESTO       0.000         0.000         0.000         0.000         0.000
+ MED            0.000         0.000         0.000         0.000         0.000
+ CSTRESS_       0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ PREGNANT       0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ BMI            0.000         0.000         0.000         0.000         0.000
+ SES            0.000         0.000         0.000         0.000         0.000
+ NEG            0.000         0.000         0.000         0.000         0.000
+ AVECORT        0.000         0.000         0.000         0.000         0.000
+ AVEDHEA        0.000         0.000         0.000         0.000         0.000
+ AVETESTO       0.000         0.000         0.000         0.000         0.000
+ MED            0.000         0.000         0.000         0.000         0.000
+ CSTRESS_       0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              PREGNANT      AGE           BMI           SES           NEG
+              ________      ________      ________      ________      ________
+ PREGNANT       0.125
+ AGE            0.000        16.450
+ BMI            0.000         0.000        25.814
+ SES            0.000         0.000         0.000         0.368
+ NEG            0.000         0.000         0.000         0.000       122.596
+ AVECORT        0.000         0.000         0.000         0.000         0.000
+ AVEDHEA        0.000         0.000         0.000         0.000         0.000
+ AVETESTO       0.000         0.000         0.000         0.000         0.000
+ MED            0.000         0.000         0.000         0.000         0.000
+ CSTRESS_       0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              AVECORT       AVEDHEA       AVETESTO      MED           CSTRESS_
+              ________      ________      ________      ________      ________
+ AVECORT       27.493
+ AVEDHEA        0.000        31.816
+ AVETESTO       0.000         0.000         0.310
+ MED            0.000         0.000         0.000         0.052
+ CSTRESS_       0.000         0.000         0.000         0.000         0.372
+
+
+TECHNICAL 8 OUTPUT
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.42371655D+04    0.0000000    0.0000000  EM
+              2 -0.34335140D+04  803.6515013    0.1896672  EM
+              3 -0.34234623D+04   10.0517703    0.0029275  EM
+              4 -0.34222825D+04    1.1797342    0.0003446  EM
+              5 -0.34220900D+04    0.1925048    0.0000563  EM
+              6 -0.34220576D+04    0.0324715    0.0000095  EM
+              7 -0.34220514D+04    0.0061354    0.0000018  EM
+              8 -0.34220500D+04    0.0014757    0.0000004  EM
+              9 -0.34220495D+04    0.0004781    0.0000001  EM
+             10 -0.34220493D+04    0.0001923    0.0000001  EM
+             11 -0.34220492D+04    0.0000859    0.0000000  EM
+             12 -0.34220492D+04    0.0000400    0.0000000  EM
+             13 -0.34220491D+04    0.0000189    0.0000000  EM
+             14 -0.34220491D+04    0.0000090    0.0000000  EM
+             15 -0.34220491D+04    0.0000043    0.0000000  EM
+             16 -0.34220491D+04    0.0000020    0.0000000  EM
+             17 -0.34220491D+04    0.0000010    0.0000000  EM
+             18 -0.34220491D+04    0.0000005    0.0000000  EM
+             19 -0.34220491D+04    0.0000002    0.0000000  EM
+
+
+   TECHNICAL 8 OUTPUT FOR THE H1 MODEL
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.35707380D+04    0.0000000    0.0000000  EM
+              2 -0.34068885D+04  163.8494839    0.0458867  EM
+              3 -0.33935870D+04   13.3014605    0.0039043  EM
+              4 -0.33932108D+04    0.3762107    0.0001109  EM
+              5 -0.33931684D+04    0.0424097    0.0000125  EM
+              6 -0.33931557D+04    0.0126645    0.0000037  EM
+              7 -0.33931503D+04    0.0054035    0.0000016  EM
+              8 -0.33931477D+04    0.0026486    0.0000008  EM
+              9 -0.33931463D+04    0.0013613    0.0000004  EM
+             10 -0.33931456D+04    0.0007109    0.0000002  EM
+             11 -0.33931452D+04    0.0003733    0.0000001  EM
+             12 -0.33931450D+04    0.0001964    0.0000001  EM
+             13 -0.33931449D+04    0.0001034    0.0000000  EM
+             14 -0.33931449D+04    0.0000545    0.0000000  EM
+
+
+   TECHNICAL 8 OUTPUT FOR THE BASELINE MODEL
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.36067658D+04    0.0000000    0.0000000  EM
+              2 -0.36065699D+04    0.1958477    0.0000543  EM
+              3 -0.36065657D+04    0.0042245    0.0000012  EM
+              4 -0.36065655D+04    0.0002089    0.0000001  EM
+              5 -0.36065655D+04    0.0000232    0.0000000  EM
+
+
+DIAGRAM INFORMATION
+
+  Mplus diagrams are currently not available for multilevel analysis.
+  No diagram output was produced.
+
+
+     Beginning Time:  20:09:48
+        Ending Time:  20:09:49
+       Elapsed Time:  00:00:01
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen
